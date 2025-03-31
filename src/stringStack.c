@@ -8,10 +8,10 @@ typedef struct {
     char **data;     // Array holding pointers to strings
     size_t capacity; // Maximum number of strings that can be stored
     size_t top;      // Index of the top element in the stack
-} stringStack;
+} StringStack;
 
 // Initialize the string stack with a given initial capacity
-bool initializeStringStack(stringStack *stack, size_t initialCapacity) {
+bool initializeStringStack(StringStack *stack, size_t initialCapacity) {
     stack->data = (char **)calloc(initialCapacity, sizeof(char *));
     if (stack->data == NULL) {
         fprintf(stderr, "Failed to allocate memory for string stack\n");
@@ -24,7 +24,7 @@ bool initializeStringStack(stringStack *stack, size_t initialCapacity) {
 }
 
 // Free the memory allocated for the string stack
-void freeStringStack(stringStack *stack) {
+void freeStringStack(StringStack *stack) {
     if (stack == NULL) {
         return;
     }
@@ -40,16 +40,16 @@ void freeStringStack(stringStack *stack) {
 }
 
 // Check if the string stack is empty
-bool isEmptyStringStack(const stringStack *stack) { return stack->top == 0; }
+bool isEmptyStringStack(const StringStack *stack) { return stack->top == 0; }
 
 // Check if the string stack is full
-bool isFullStringStack(const stringStack *stack) {
+bool isFullStringStack(const StringStack *stack) {
     return stack->top == stack->capacity;
 }
 
 // Push a string onto the stack
 // Double the capacity if the stack is full
-bool pushStringStack(stringStack *stack, const char *value) {
+bool pushStringStack(StringStack *stack, const char *value) {
     // If the stack is full, double the capacity
     if (isFullStringStack(stack)) {
         size_t newCapacity = stack->capacity * 2;
@@ -77,7 +77,7 @@ bool pushStringStack(stringStack *stack, const char *value) {
 
 // Pop a string from the stack
 // (Caller is responsible for freeing the memory)
-bool popStringStack(stringStack *stack, char **value) {
+bool popStringStack(StringStack *stack, char **value) {
     if (isEmptyStringStack(stack)) {
         fprintf(stderr, "Cannot pop from an empty string stack\n");
         return false;
@@ -90,7 +90,7 @@ bool popStringStack(stringStack *stack, char **value) {
 
 // Print the contents of the string stack
 // (Caller is responsible for freeing the memory)
-bool peekStringStack(const stringStack *stack, char **value) {
+bool peekStringStack(const StringStack *stack, char **value) {
     if (isEmptyStringStack(stack)) {
         fprintf(stderr, "Cannot peek into an empty string stack\n");
         return false;
@@ -103,7 +103,7 @@ bool peekStringStack(const stringStack *stack, char **value) {
 }
 // Main function to demonstrate usage of the string stack
 int main(void) {
-    stringStack stack;
+    StringStack stack;
     if (!initializeStringStack(&stack, 4)) {
         return EXIT_FAILURE;
     }

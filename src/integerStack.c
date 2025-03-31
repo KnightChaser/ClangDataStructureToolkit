@@ -7,10 +7,10 @@ typedef struct {
     int *data;   // Array to store the elements
     size_t size; // Size of the array
     size_t top;  // Index of the top element
-} integerStack;
+} IntegerStack;
 
 // Initialize the integer stack with the given initial capacity
-bool initializeIntegerStack(integerStack *stack, size_t initialCapacity) {
+bool initializeIntegerStack(IntegerStack *stack, size_t initialCapacity) {
     stack->data = (int *)calloc(initialCapacity, sizeof(int));
     if (stack->data == NULL) {
         fprintf(stderr, "Failed to allocate memory for the stack.\n");
@@ -23,7 +23,7 @@ bool initializeIntegerStack(integerStack *stack, size_t initialCapacity) {
 }
 
 // Free the memory allocated for the integer stack
-void freeIntegerStack(integerStack *stack) {
+void freeIntegerStack(IntegerStack *stack) {
     free(stack->data);
     stack->data = NULL;
     stack->size = 0;
@@ -31,17 +31,17 @@ void freeIntegerStack(integerStack *stack) {
 }
 
 // Check if the integer stack is empty
-bool isEmptyIntegerStack(integerStack *stack) { return stack->top == 0; }
+bool isEmptyIntegerStack(IntegerStack *stack) { return stack->top == 0; }
 
 // Check if the integer stack is full
-bool isFullIntegerStack(integerStack *stack) {
+bool isFullIntegerStack(IntegerStack *stack) {
     return stack->top == stack->size;
 }
 
 // Push an element onto the integer stack
 // When the stack is full, the function will realloc() the array
 // to double the size of the original array
-bool pushIntegerStack(integerStack *stack, int value) {
+bool pushIntegerStack(IntegerStack *stack, int value) {
     if (isFullIntegerStack(stack)) {
         size_t newSize = stack->size * 2;
         int *newData = (int *)realloc(stack->data, newSize * sizeof(int));
@@ -61,7 +61,7 @@ bool pushIntegerStack(integerStack *stack, int value) {
 }
 
 // Pop an element from the integer stack
-bool popIntegerStack(integerStack *stack, int *value) {
+bool popIntegerStack(IntegerStack *stack, int *value) {
     if (isEmptyIntegerStack(stack)) {
         fprintf(stderr, "The stack is empty.\n");
         return false;
@@ -74,7 +74,7 @@ bool popIntegerStack(integerStack *stack, int *value) {
 }
 
 // Peek the top element of the integer stack
-bool peekIntegerStack(integerStack *stack, int *value) {
+bool peekIntegerStack(IntegerStack *stack, int *value) {
     if (isEmptyIntegerStack(stack)) {
         fprintf(stderr, "The stack is empty.\n");
         return false;
@@ -88,7 +88,7 @@ bool peekIntegerStack(integerStack *stack, int *value) {
 
 // Main function to demonstrate stack usage
 int main(void) {
-    integerStack stack;
+    IntegerStack stack;
     if (!initializeIntegerStack(&stack, 4)) {
         return EXIT_FAILURE;
     }

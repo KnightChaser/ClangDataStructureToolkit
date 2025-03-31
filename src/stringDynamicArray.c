@@ -4,20 +4,20 @@
 #include <string.h>
 
 // Node structure for each string element
-typedef struct stringDynamicArrayNode {
+typedef struct StringDynamicArrayNode {
     char *data;                          // The string data
-    struct stringDynamicArrayNode *next; // Pointer to the next node
-} stringDynamicArrayNode;
+    struct StringDynamicArrayNode *next; // Pointer to the next node
+} StringDynamicArrayNode;
 
 // Structure for the dynamic string array
 typedef struct {
-    stringDynamicArrayNode *head; // Pointer to the first node
-    stringDynamicArrayNode *tail; // Pointer to the last node
+    StringDynamicArrayNode *head; // Pointer to the first node
+    StringDynamicArrayNode *tail; // Pointer to the last node
     size_t size;                  // Number of elements in the array
-} stringDynamicArray;
+} StringDynamicArray;
 
 // Initialize the dynamic string array
-bool initializeStringDynamicArray(stringDynamicArray *array) {
+bool initializeStringDynamicArray(StringDynamicArray *array) {
     if (array == NULL) {
         return false;
     }
@@ -29,14 +29,14 @@ bool initializeStringDynamicArray(stringDynamicArray *array) {
 }
 
 // Free all memory used by the dynamic string array
-void freeStringDynamicArray(stringDynamicArray *array) {
+void freeStringDynamicArray(StringDynamicArray *array) {
     if (array == NULL) {
         return;
     }
 
-    stringDynamicArrayNode *current = array->head;
+    StringDynamicArrayNode *current = array->head;
     while (current != NULL) {
-        stringDynamicArrayNode *next = current->next;
+        StringDynamicArrayNode *next = current->next;
         free(current->data); // Free the string data (char *)
         free(current);       // Free the node itself
         current = next;
@@ -48,14 +48,14 @@ void freeStringDynamicArray(stringDynamicArray *array) {
 }
 
 // Append a string to the dynamic string array
-bool appendStringDynamicArray(stringDynamicArray *array, const char *string) {
+bool appendStringDynamicArray(StringDynamicArray *array, const char *string) {
     if (array == NULL || string == NULL) {
         return false;
     }
 
     // Allocate a new node
-    stringDynamicArrayNode *newNode =
-        (stringDynamicArrayNode *)calloc(1, sizeof(stringDynamicArrayNode));
+    StringDynamicArrayNode *newNode =
+        (StringDynamicArrayNode *)calloc(1, sizeof(StringDynamicArrayNode));
     if (newNode == NULL) {
         fprintf(stderr, "Memory allocation failed for the new node\n");
         return false;
@@ -86,7 +86,7 @@ bool appendStringDynamicArray(stringDynamicArray *array, const char *string) {
 
 // Find the index of the first occurrence of a string in the dynamic string
 // array If found, returns true and sets *index; otherwise, returns false.
-bool findStringDynamicArray(stringDynamicArray *array, const char *string,
+bool findStringDynamicArray(StringDynamicArray *array, const char *string,
                             size_t *index) {
     if (array == NULL || string == NULL || index == NULL) {
         fprintf(stderr, "Invalid arguments\n");
@@ -95,7 +95,7 @@ bool findStringDynamicArray(stringDynamicArray *array, const char *string,
 
     size_t idx = 0;
     size_t stringLength = strlen(string);
-    for (stringDynamicArrayNode *current = array->head; current != NULL;
+    for (StringDynamicArrayNode *current = array->head; current != NULL;
          current = current->next) {
         if (strncmp(string, current->data, stringLength) == 0) {
             *index = idx;
@@ -110,14 +110,14 @@ bool findStringDynamicArray(stringDynamicArray *array, const char *string,
 
 // Delete the string at the specified index in the dynamic string array
 // Returns true if the string is deleted; otherwise, returns false.
-bool deleteStringDynamicArray(stringDynamicArray *array, const char *string) {
+bool deleteStringDynamicArray(StringDynamicArray *array, const char *string) {
     if (array == NULL || string == NULL) {
         fprintf(stderr, "Invalid arguments\n");
         return false;
     }
 
-    stringDynamicArrayNode *previous = NULL;
-    stringDynamicArrayNode *current = array->head;
+    StringDynamicArrayNode *previous = NULL;
+    StringDynamicArrayNode *current = array->head;
 
     size_t stringLength = strlen(string);
     while (current) {
@@ -154,7 +154,7 @@ bool deleteStringDynamicArray(stringDynamicArray *array, const char *string) {
 
 // Main function to demonstrate usage
 int main(void) {
-    stringDynamicArray sda;
+    StringDynamicArray sda;
 
     // Initialize the string dynamic array
     if (!initializeStringDynamicArray(&sda)) {
@@ -169,7 +169,7 @@ int main(void) {
 
     // Print all strings in the array
     printf("String Dynamic Array elements:\n");
-    for (stringDynamicArrayNode *node = sda.head; node; node = node->next) {
+    for (StringDynamicArrayNode *node = sda.head; node; node = node->next) {
         printf("%s\n", node->data);
     }
 
@@ -191,7 +191,7 @@ int main(void) {
 
     // Print the array after deletion
     printf("Array after deletion:\n");
-    for (stringDynamicArrayNode *node = sda.head; node; node = node->next) {
+    for (StringDynamicArrayNode *node = sda.head; node; node = node->next) {
         printf("%s\n", node->data);
     }
 

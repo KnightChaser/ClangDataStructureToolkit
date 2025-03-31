@@ -7,10 +7,10 @@ typedef struct {
     int *data;       // Pointer to the array holding the data
     size_t size;     // Current number of elements in the array
     size_t capacity; // Current capacity of the array (adjustable)
-} integerDynamicArray;
+} IntegerDynamicArray;
 
 // Initialize the dynamic integer array with the given initial capacity
-bool initializeIntegerDynamicArray(integerDynamicArray *array,
+bool initializeIntegerDynamicArray(IntegerDynamicArray *array,
                                    size_t initialCapacity) {
     array->data = (int *)calloc(initialCapacity, sizeof(int));
     if (array->data == NULL) {
@@ -23,7 +23,7 @@ bool initializeIntegerDynamicArray(integerDynamicArray *array,
 }
 
 // Free memory allocated for the dynamic integer array
-void freeIntegerDynamicArray(integerDynamicArray *array) {
+void freeIntegerDynamicArray(IntegerDynamicArray *array) {
     free(array->data);
     array->data = NULL;
     array->size = 0;
@@ -31,7 +31,7 @@ void freeIntegerDynamicArray(integerDynamicArray *array) {
 }
 
 // Append a value to the end of the dynamic integer array
-bool appendIntegerDynamicArray(integerDynamicArray *array, int value) {
+bool appendIntegerDynamicArray(IntegerDynamicArray *array, int value) {
     if (array->size == array->capacity) {
         // If the array is full, double the capacity to hold more elements
         size_t newCapacity = array->capacity * 2;
@@ -49,7 +49,7 @@ bool appendIntegerDynamicArray(integerDynamicArray *array, int value) {
 
 // Find the index of the first occurrence of the given value in the dynamic
 // integer array Returns true and sets *index if found; returns false otherwise.
-bool findIntegerDynamicArray(integerDynamicArray *array, int value,
+bool findIntegerDynamicArray(IntegerDynamicArray *array, int value,
                              size_t *index) {
     for (size_t i = 0; i < array->size; i++) {
         if (array->data[i] == value) {
@@ -61,7 +61,7 @@ bool findIntegerDynamicArray(integerDynamicArray *array, int value,
 }
 
 // Delete the first occurrence of the given value in the dynamic integer array
-bool deleteIntegerDynamicArray(integerDynamicArray *array, int value) {
+bool deleteIntegerDynamicArray(IntegerDynamicArray *array, int value) {
     size_t index;
     if (!findIntegerDynamicArray(array, value, &index)) {
         // Value not found
@@ -79,7 +79,7 @@ bool deleteIntegerDynamicArray(integerDynamicArray *array, int value) {
 
 // Main function to demonstrate the usage of the dynamic integer array
 int main(void) {
-    integerDynamicArray vec;
+    IntegerDynamicArray vec;
     if (!initializeIntegerDynamicArray(&vec, 4)) {
         return EXIT_FAILURE;
     }
